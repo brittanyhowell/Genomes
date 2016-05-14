@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 # Invoked by:
 #
@@ -35,11 +35,11 @@ for iHit in "${multiHit[@]}"; do
 		for iGap in "${gap[@]}"; do
 
 #Run alignment for mouse
- 			tophat -o="../aligned" -micro-exon-search -no-mixed -no-discordant ${iHit} ${iMatch} ${iGap} mm10 ${LEFTREADS}  ${RIGHTREADS}
+ 			tophat -o="../aligned" -micro-exon-search -no-mixed -no-discordant -g=${iHit} -N=${iMatch} -read-gap-length=${iGap} mm10 ${LEFTREADS}  ${RIGHTREADS}
  			#echo "hits: ${iHit}, mismatches: ${iMatch}, gaps: ${iGap}" >> listFiles.txt
 
 
- 			#2> outputTopHat.log
+ 			2> outputTopHat.log
 		done
 	done
 done

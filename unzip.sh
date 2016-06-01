@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for file in *; 
-do unzip ${file} 
+for file in *.gz; 
+do gzip -d ${file} 
 done 

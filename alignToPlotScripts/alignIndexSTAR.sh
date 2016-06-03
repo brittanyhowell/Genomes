@@ -83,12 +83,12 @@ for file in ${READ}; do
 	 		cd ${alignDIR}
 			# Make bam index
 			echo "Making bam index" >> ${record} 2>&1
-			samtools index ${readname}.STAR.Aligned.sortedByCoord.out.bam 
+			samtools index ${readname}.STAR.${iMatch}.${iMap}.Aligned.sortedByCoord.out.bam 
 
 			# Move alignment information files into separate folder
-			mv ${readname}.STAR.Log.out ${alignOutDIR} 
-			mv ${readname}.STAR.Log.final.out ${alignOutDIR} 
-			mv ${readname}.STAR.Log.progress.out ${alignOutDIR} 
+			mv ${readname}.STAR.${iMatch}.${iMap}.Log.out ${alignOutDIR} 
+			mv ${readname}.STAR.${iMatch}.${iMap}.Log.final.out ${alignOutDIR} 
+			mv ${readname}.STAR.${iMatch}.${iMap}.Log.progress.out ${alignOutDIR} 
 
 			echo "Completed alignment for ${readname} with ${iMap} multimapping and ${iMatch} mismatches" >> ${record} 2>&1
 			date >> ${record} 2>&1

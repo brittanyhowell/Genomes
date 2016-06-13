@@ -37,7 +37,7 @@ for file in *.bed ; do
 
 filename=${file%.bed}
 	
-	echo "Commencing intersect for ${file}" >> ${record} 2>&1
+	echo "Commencing intersect for ${filename}" >> ${record} 2>&1
 	bedtools intersect -a  ${BEDDir}/${file} -b  ${COORDDIR}/L1_Mouse_bothorf.bed > ${OUTDIR}/${filename}-bothorf.bed
 
 done

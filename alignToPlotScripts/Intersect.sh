@@ -3,10 +3,11 @@
 ## Date: 10-6-2016
 
 # Working folders
-BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep2_GCCAAT_L008
-record=/mnt/project/Data/Mouse/Scripts/record/recordIntersect.txt 
+BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
+record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1.txt 
 COORDDIR=/mnt/project/Data/Mouse/locationMouse
-OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep2_GCCAAT_L008
+OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007
+ADEDATE=$(TZ="Australia/Adelaide" date)
 
 # Check and make record
 if [ -f ${record} ]; then
@@ -19,7 +20,7 @@ else
 fi
 
 echo "Commencing program">> ${record} 2>&1
-date >> ${record} 2>&1
+$ADEDATE >> ${record} 2>&1
 
 # Check OUTDIR exists 
 if [ -d $OUTDIR ]; then
@@ -43,4 +44,4 @@ filename=${file%.bed}
 done
 
 echo "Completed program" >> ${record} 2>&1
-date >> ${record} 2>&1
+$ADEDATE >> ${record} 2>&1

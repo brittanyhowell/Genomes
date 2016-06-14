@@ -45,3 +45,6 @@ done
 
 echo "Completed program" >> ${record} 2>&1
 $ADEDATE >> ${record} 2>&1
+
+cat ${record} | mail -s "Finished Intersect" brittany.howell1@gmail.com 
+	echo "Email sent"  >> ${record} 2>&1

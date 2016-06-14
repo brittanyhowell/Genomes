@@ -3,10 +3,10 @@
 ## Date: 10-6-2016
 
 # Working folders
-TestAlignDIR=/mnt/project/Data/Mouse/alignedReads/Mut-F2-Rep2_GCCAAT_L008
-BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep2_GCCAAT_L008
-record=/mnt/project/Data/Mouse/Scripts/record.txt 
-
+TestAlignDIR=/mnt/project/Data/Mouse/alignedReads/Mut-F2-Rep1_CGTACG_L007
+BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
+record=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1.txt 
+ADEDATE=$(TZ="Australia/Adelaide" date)
 
 
 if [ -f ${record} ]; then
@@ -19,7 +19,7 @@ else
 fi
 
 echo "Commencing program">> ${record} 2>&1
-date >> ${record} 2>&1
+echo $ADEDATE >> ${record} 2>&1
 
 # Check BED folder exists, if not, make it
 	if [ -d $BEDDir ]; then
@@ -64,5 +64,5 @@ for file in *.bam ; do
 
 done
 echo "Completed program" >> ${record} 2>&1
-date >> ${record} 2>&1
+echo $ADEDATE >> ${record} 2>&1
 

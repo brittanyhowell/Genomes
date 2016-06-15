@@ -57,7 +57,7 @@ for file in *.bam ; do
 	  # Move back into alignment folder so files can be accessed
   	  cd $TestAlignDIR
   	  echo "converting BAM to BED" >> ${record} 2>&1
-  	  bedtools bamtobed -i $file > $readname.bed; 2>&1
+  	  bedtools bamtobed -i $file > $readname.bed; 2>${record}
   	  mv $readname.bed $BEDDir
 	fi	
 	

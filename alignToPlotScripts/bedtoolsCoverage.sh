@@ -5,6 +5,7 @@ L1=/mnt/project/Data/Mouse/locationMouse
 recordDIR=/mnt/project/Coverage/Scripts/record/
 record=/mnt/project/Coverage/Scripts/record/recordCoverage.txt 
 error=/mnt/project/Coverage/Scripts/record/recordCoverage.err.log 
+RecordError=/mnt/project/Coverage/Scripts/record/recordCoverage.err.log 
 OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007
 ADEDATE=$(TZ="Australia/Adelaide" date)
 
@@ -18,6 +19,8 @@ else
     echo "${record} did not exist, now does" >> ${record} 2>&1
 fi
 
+
+
 # Check and make error.log
 if [ -f ${error} ]; then
 	rm ${error}
@@ -28,8 +31,20 @@ else
     echo "${error} did not exist, now does" >> ${record} 2>&1
 fi
 
-echo "Commencing time: $ADEDATE" >> ${record} 2>&1
-echo "Commencing time: $ADEDATE" >> ${error} 2>&1
+# Check and make RecordErr.log
+if [ -f ${RecordError} ]; then
+	rm ${RecordError}
+	touch ${RecordError}
+    echo "${RecordError} exists, replacing" >> ${record} 2>&1
+else
+    touch ${RecordError}
+    echo "${RecordError} did not exist, now does" >> ${record} 2>&1
+fi
+
+echo "Commencing time: " >> ${record} 2>&1
+TZ=Australia/Adelaide date >> ${record} 2>&1
+echo "Commencing time: " >> ${error} 2>&1
+TZ=Australia/Adelaide date >> ${error} 2>&1
 
 # Check OUTDIR exists 
 if [ -d $OUTDIR ]; then
@@ -57,28 +72,30 @@ for iRead in *.bed; do
 	#Trim filename
 	filename=${iRead%.Aligned.sortedByCoord.out-bothorf.bed}
 
-	echo "Calculating coverage for ${filename} at ${ADEDATE}" >> ${record} 2>&1
+	echo "Calculating coverage for ${filename}" >> ${record} 2>&1
 
-	bedtools coverage -F 0.2 -s -split -d  -a ${L1}/L1_Mouse_bothorf.bed  -b ${READS}/${iRead} > ${filename}.bothorf.coverage.bed 2>${error}
+	bedtools coverage -F 0.2 -s -split  -a ${L1}/L1_Mouse_bothorf.bed  -b ${READS}/${iRead} > ${filename}.bothorf.coverage.bed 2>${error}
 
 	# Move coverage file into outDIR 
 	mv ${filename}.bothorf.coverage.bed ${OUTDIR}
 
-	cat ${record} | mail -s "Finished coverage for file" brittany.howell1@gmail.com 
 done
 
-echo "Completing time: $ADEDATE" >> ${record} 2>&1
-echo "Completing time: $ADEDATE" >> ${error} 2>&1
+cd ${recordDIR}
+echo "Completing time: " >> ${record} 2>&1
+TZ=Australia/Adelaide date >> ${record} 2>&1
+echo "Completing time: " >> ${error} 2>&1
+TZ=Australia/Adelaide date >> ${error} 2>&1
 
 # Make combined record file
-cd ${recordDIR}
-echo "Record file:" > RecordErr.log 
-cat recordCoverage.txt >> RecordErr.log 
-echo "" >> RecordErr.log 
-echo "Error file:" >> RecordErr.log 
-cat recordCoverage.err.log >> RecordErr.log
+echo "Record file:" >> ${RecordError}
+cat recordCoverage.txt >> ${RecordError}
+echo "" >> ${RecordError}
+echo "Error file:" >> ${RecordError}
+cat recordCoverage.err.log >> ${RecordError}
 
-cat RecordErr.log | mail -s "Finished All coverage at $ADEDATE" brittany.howell1@gmail.com 
+# Send combined record file
+cat RecordErr.log | mail -s "Finished Coverage" brittany.howell1@gmail.com 
 	echo "Email sent"  >> ${record} 2>&1
 
 echo "complete"

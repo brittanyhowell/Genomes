@@ -6,6 +6,7 @@
 TestAlignDIR=/mnt/project/Data/Mouse/alignedReads/Mut-F2-Rep1_CGTACG_L007
 BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
 record=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1.txt 
+error=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1.log 
 ADEDATE=$(TZ="Australia/Adelaide" date)
 
 
@@ -20,6 +21,15 @@ fi
 
 echo "Commencing program">> ${record} 2>&1
 echo $ADEDATE >> ${record} 2>&1
+
+if [ -f ${error} ]; then
+	rm ${error}
+	touch ${error}
+    echo "${error} exists, replacing" >> ${record} 2>&1
+else
+    touch ${error}
+    echo "${error} did not exist, now does" >> ${record} 2>&1
+fi
 
 # Check BED folder exists, if not, make it
 	if [ -d $BEDDir ]; then
@@ -57,7 +67,7 @@ for file in *.bam ; do
 	  # Move back into alignment folder so files can be accessed
   	  cd $TestAlignDIR
   	  echo "converting BAM to BED" >> ${record} 2>&1
-  	  bedtools bamtobed -i $file > $readname.bed; 2>${record}
+  	  bedtools bamtobed -i $file > $readname.bed; 2>${error}
   	  mv $readname.bed $BEDDir
 	fi	
 	

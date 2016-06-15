@@ -22,6 +22,15 @@ fi
 echo "Commencing program">> ${record} 2>&1
 $ADEDATE >> ${record} 2>&1
 
+if [ -f ${error} ]; then
+	rm ${error}
+	touch ${error}
+    echo "${error} exists, replacing" >> ${record} 2>&1
+else
+    touch ${error}
+    echo "${error} did not exist, now does" >> ${record} 2>&1
+fi
+
 # Check OUTDIR exists 
 if [ -d $OUTDIR ]; then
 	rm -r $OUTDIR 

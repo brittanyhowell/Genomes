@@ -7,6 +7,7 @@ BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
 record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1.txt 
 COORDDIR=/mnt/project/Data/Mouse/locationMouse
 OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007
+error=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1.err.log 
 ADEDATE=$(TZ="Australia/Adelaide" date)
 
 # Check and make record
@@ -19,8 +20,9 @@ else
     echo "${record} did not exist, now does" >> ${record} 2>&1
 fi
 
+# Check and make error.log
 echo "Commencing program">> ${record} 2>&1
-$ADEDATE >> ${record} 2>&1
+echo $ADEDATE  >> ${record} 2>&1
 
 if [ -f ${error} ]; then
 	rm ${error}
@@ -53,7 +55,7 @@ filename=${file%.bed}
 done
 
 echo "Completed program" >> ${record} 2>&1
-$ADEDATE >> ${record} 2>&1
+echo $ADEDATE  >> ${record} 2>&1
 
 cat ${record} | mail -s "Finished Intersect" brittany.howell1@gmail.com 
 	echo "Email sent"  >> ${record} 2>&1

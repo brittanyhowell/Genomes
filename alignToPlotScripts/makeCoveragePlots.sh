@@ -44,8 +44,25 @@ for iCov in $COVERAGE; do
 	
 done
  
+ # Move all files into plots folder
  cd ${CoverageDIR}
  mv *.pdf ${Plots}
+
+ # Rename plots for the sake of LaTeX.
+
+ cd ${Plots}
+ for iPlot in *.pdf ; do 
+
+ 	AddDash=$(echo $iPlot | sed 's/\./-/g')
+ 	RemovePdf=${AddDash%-pdf}
+ 	LatexName="${RemovePdf}.pdf"
+
+ 	mv $iPlot $LatexName
+
+ done
+
+
+
 
  echo "complete"
 

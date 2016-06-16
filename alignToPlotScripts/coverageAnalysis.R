@@ -1,4 +1,3 @@
-
 setwd("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/")
 
 args = commandArgs(TRUE)
@@ -11,8 +10,6 @@ if (length(args)==0) {
   args[2] = "out.txt"
 }
 
-library(Rsamtools)
-library(GenomicRanges)
 
 # Reading coverage table
 
@@ -30,12 +27,12 @@ plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, 1), ylim 
      xlab = 'Proportion of L1 bases covered by at least one read')
 dev.off
 
-#file.rename( Mut-F2-Rep1_CGTACG_L007.STAR.2.20.bothorf.coverage.bed.pdf, ./ReadCoverage/Mut-F2-Rep1-Plots/Mut-F2-Rep1_CGTACG_L007.STAR.2.20.bothorf.coverage.bed.pdf)
-
+pdf(args[3])
 plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, .2), ylim = c(1,2.5), 
      main = 'Average depth of covered L1 bases', 
      ylab = 'Depth of covered bases in L1 elements',
      xlab = 'Proportion of L1 bases covered by at least one read')
+dev.off
 
 
 

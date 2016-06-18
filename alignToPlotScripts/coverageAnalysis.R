@@ -22,7 +22,7 @@ depthAtCovered <- (coverage$`number overlapping features`/coverage$`Number bases
 
 pdf(args[2])
 plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, 1), ylim = c(0,10), 
-     main = 'Average depth of covered L1 bases', 
+     main = 'Average depth of covered L1 basesLa', 
      ylab = 'Depth of covered bases in L1 elements',
      xlab = 'Proportion of L1 bases covered by at least one read')
 dev.off
@@ -35,8 +35,10 @@ plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, .2), ylim
 dev.off
 
 
-
-# median(coverage$`Fraction of read at depth`)
-# median(coverage$`number overlapping features`)
-# sortDepthAtCovered <- sort(depthAtCovered, decreasing = FALSE)
-# median(sortDepthAtCovered)
+sink("medianFraction.txt", append=TRUE)
+ median(coverage$`Fraction of read at depth`)
+sink()
+sink("meanNumber.txt", append = TRUE)
+ mean(coverage$`number overlapping features`)
+sink()
+ 

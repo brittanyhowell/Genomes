@@ -1,3 +1,4 @@
+## Script uses R to make plots from coverage data.
 #/bin/bash
 
 COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1/*
@@ -49,7 +50,6 @@ done
  mv *.pdf ${Plots}
 
  # Rename plots for the sake of LaTeX.
-
  cd ${Plots}
  for iPlot in *.pdf ; do 
 
@@ -60,8 +60,13 @@ done
  	mv $iPlot $LatexName
 
  done
+ 
+ cd ${Scripts}
+ echo "Making LaTeX tables"
+./LatexCoveragePlots.sh
 
-
+echo "Making summary Plot"
+R script makeCoverageSummary.R
 
 
  echo "complete"

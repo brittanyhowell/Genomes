@@ -35,10 +35,12 @@ plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, .2), ylim
 dev.off
 
 
-sink("medianFraction.txt", append=TRUE)
- median(coverage$`Fraction of read at depth`)
+sink("meanFraction.txt", append=TRUE)
+ mean(coverage$`Fraction of read at depth`)
 sink()
+
+sortDAC <- sort(depthAtCovered)
 sink("meanNumber.txt", append = TRUE)
- mean(coverage$`number overlapping features`)
+ mean(sortDAC)
 sink()
  

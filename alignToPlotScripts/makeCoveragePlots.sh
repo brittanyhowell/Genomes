@@ -62,11 +62,18 @@ done
  done
  
  cd ${Scripts}
- echo "Making LaTeX tables"
+ echo "Making LaTeX plots"
 ./LatexCoveragePlots.sh
 
 echo "Making summary Plot"
-R script makeCoverageSummary.R
+
+Rscript makeCoverageSummary.R
+
+echo "Making summary Latex table"
+./LatexCoverageTable.sh
+
+echo "Making Latex Summary Plot"
+./LatexCoverageSummaryPlot.sh
 
 
  echo "complete"

@@ -2,7 +2,6 @@
 PlotsDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots
 
 
-
 cd ${PlotsDIR}
 
 # Check if tablefile exists

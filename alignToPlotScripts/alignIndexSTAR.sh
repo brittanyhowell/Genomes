@@ -1,4 +1,5 @@
-## Script aligns mouse HENMT2 reads to mm10 using STAR, then calculates coverage and plots with R.
+#!/bin/bash
+## Script aligns mouse HENMT2 reads to mm10 using STAR,
 ## Date: 31-5-2016
 
 # Working folders

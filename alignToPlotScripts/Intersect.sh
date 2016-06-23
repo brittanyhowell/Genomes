@@ -5,12 +5,12 @@
 # Working folders
 BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
 COORDDIR=/mnt/project/Data/Mouse/locationMouse
-COORD=L1_Mouse_orf2only.bed
-OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007
+COORD=L1_Mouse_bothorf.bed
+OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007-BothORF
 recordDIR=/mnt/project/Coverage/Scripts/record/
-record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1-ORF2.txt 
-error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1-ORF2.err
-RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1-ORF2.err.log
+record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1bothORF.txt 
+error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1bothORF.err
+RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1bothORF.err.log
 
 # Check and make record
 if [ -f ${record} ]; then
@@ -81,5 +81,5 @@ TZ=Australia/Adelaide date  >> ${record} 2>&1
 
 cat ${record} | mail -s "Finished Intersect" brittany.howell1@gmail.com 
 	echo "Email sent"  >> ${record} 2>&1
-
+echo "Complete"
 

@@ -1,10 +1,18 @@
 ## Script uses R to make plots from coverage data.
 #/bin/bash
 
-COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1/*
-CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1
+#Merge files
+COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-merge/*
+CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-merge
 Scripts=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts
-Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots
+Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-merge-Plots
+
+#Non-merge files
+# COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1/*
+# CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1
+# Scripts=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts
+# Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots
+
 
 echo "Commencing program"
 TZ="Australia/Adelaide" date
@@ -32,22 +40,24 @@ else
 	echo "creating Plots folder" 
 	mkdir $Plots
 fi 
-
 echo "finished removing"
-# Plot coverage
 
+# Plot coverage
+echo "Plotting coverage plots"
 for iCov in $COVERAGE; do 
 	
 	filename=${iCov%.coverage.bed}
-
+echo $filename
 	cd ${Scripts}
 	Rscript coverageAnalysis.R ${iCov} ${filename}.pdf ${filename}.zoom.pdf
-	
+
 done
- 
- # Move all files into plots folder
+ mv meanNumber.txt ${Plots}
+ mv meanFraction.txt ${Plots}
+ # # Move all files into plots folder
  cd ${CoverageDIR}
  mv *.pdf ${Plots}
+echo "Plots created and moved"
 
  # Rename plots for the sake of LaTeX.
  cd ${Plots}
@@ -60,6 +70,8 @@ done
  	mv $iPlot $LatexName
 
  done
+
+echo "Plots renamed"
  
  cd ${Scripts}
  echo "Making LaTeX plots"
@@ -67,13 +79,16 @@ done
 
 echo "Making summary Plot"
 
-Rscript makeCoverageSummary.R
+Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf
 
 echo "Making summary Latex table"
 ./LatexCoverageTable.sh
 
 echo "Making Latex Summary Plot"
+
 ./LatexCoverageSummaryPlot.sh
+
+
 
 
  echo "complete"

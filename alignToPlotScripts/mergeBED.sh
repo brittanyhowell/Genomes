@@ -3,20 +3,22 @@
 
 echo "commencing"
 
-BEDDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007
-OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007-both-ORF2
+BEDDIR=/mnt/project/Data/Mouse/locationMouse
+#OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007-both-ORF2
 
 cd ${BEDDIR}
 
-for file in *bothORF.bed ; do  
+#for file in *bothORF.bed ; do  
 
-filename=${file%-bothORF.bed}
+#filename=${file%-bothORF.bed}
 
 
- cat ${filename}-bothORF.bed >> ${filename}-bothORF-ORF2.bed
- cat ${filename}-ORF2only.bed >> ${filename}-bothORF-ORF2.bed
+ cat L1_Mouse_bothorf.bed >> L1_Mouse_merge_ORF2only-bothORF.bed
+ cat L1_Mouse_orf2only.bed >> L1_Mouse_merge_ORF2only-bothORF.bed
+
 
 # mv ${filename}-bothORF-ORF2.bed ${OUTDIR}
-done 
+#done 
+bedtools sort -i L1_Mouse_merge_ORF2only-bothORF.bed > L1_Mouse_merge_sort_ORF2only-bothORF.bed
 
 echo "complete"

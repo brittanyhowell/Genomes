@@ -1,13 +1,21 @@
 #!/bin/bash
 
-READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007
-L1=/mnt/project/Data/Mouse/locationMouse
+# Data folders
+READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007-both-ORF2
+L1DIR=/mnt/project/Data/Mouse/locationMouse
+L1=L1_Mouse_merge_sort_ORF2only-bothORF.bed
+OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-merge
+
+# File name changes
+trunc=".Aligned.sortedByCoord.out-bothORF-ORF2.bed"
+newName=".bothorf.ORF2only.coverage.bed"
+
+# Keeping records
 recordDIR=/mnt/project/Coverage/Scripts/record/
-record=/mnt/project/Coverage/Scripts/record/recordCoverage.txt 
-error=/mnt/project/Coverage/Scripts/record/recordCoverage.err.log 
-RecordError=/mnt/project/Coverage/Scripts/record/recordCoverage.err.log 
-OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007
-ADEDATE=$(TZ="Australia/Adelaide" date)
+record=/mnt/project/Coverage/Scripts/record/recordCoverage-Merge.txt 
+error=/mnt/project/Coverage/Scripts/record/recordCoverage-Merge.err
+RecordError=/mnt/project/Coverage/Scripts/record/recordCoverage-Merge.err.log 
+
 
 # Check and make record
 if [ -f ${record} ]; then
@@ -18,7 +26,6 @@ else
     touch ${record}
     echo "${record} did not exist, now does" >> ${record} 2>&1
 fi
-
 
 
 # Check and make error.log
@@ -70,24 +77,25 @@ fi
 for iRead in *.bed; do
 
 	#Trim filename
-	filename=${iRead%.Aligned.sortedByCoord.out-bothorf.bed}
+	filename=${iRead%${trunc}}
 
 	echo "Calculating coverage for ${filename}" >> ${record} 2>&1
 
-	bedtools coverage -F 0.2 -s -split  -a ${L1}/L1_Mouse_bothorf.bed  -b ${READS}/${iRead} > ${filename}.bothorf.coverage.bed 2>${error}
+	bedtools coverage -F 0.2 -s -split  -a ${L1DIR}/${L1}  -b ${READS}/${iRead} > ${filename}${newName} 2>${error}
 
 	# Move coverage file into outDIR 
-	mv ${filename}.bothorf.coverage.bed ${OUTDIR}
+	mv ${filename}${newName} ${OUTDIR}
+	echo "Finished ${iRead}"
 
 done
 
-cd ${recordDIR}
 echo "Completing time: " >> ${record} 2>&1
 TZ=Australia/Adelaide date >> ${record} 2>&1
 echo "Completing time: " >> ${error} 2>&1
 TZ=Australia/Adelaide date >> ${error} 2>&1
 
 # Make combined record file
+cd ${recordDIR}
 echo "Record file:" >> ${RecordError}
 cat recordCoverage.txt >> ${RecordError}
 echo "" >> ${RecordError}

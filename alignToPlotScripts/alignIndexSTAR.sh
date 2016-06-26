@@ -1,13 +1,14 @@
 #!/bin/bash
-## Script aligns mouse HENMT2 reads to mm10 using STAR,
+## alignIndexSTAR.sh aligns mouse HENMT2 reads to mm10 using STAR,
 ## Date: 31-5-2016
 
 # Working folders
 rawDIR=/mnt/project/Data/Mouse/rawReads
 indexedDIR=/mnt/project/Data/Mouse/indexedMouse
-alignDIR=/mnt/project/Data/Mouse/alignedReads
-alignOutDIR=/mnt/project/Data/Mouse/AlignmentOutputData
-record=/mnt/project/Data/Mouse/record.txt 
+alignDIR=/mnt/project/Data/Mouse/extendedAlignedReads
+alignOutDIR=/mnt/project/Data/Mouse/extendedAlignmentOutputData
+record=/mnt/project/Data/Mouse/Scripts/record/recordAlignment2.txt 
+recordDIR=/mnt/project/Data/Mouse/Scripts/record
 
 if [ -f ${record} ]; then
 	rm ${record}
@@ -28,14 +29,16 @@ if [ -d $rawDIR ]; then
     echo "Folder $rawDIR exists ..." >> ${record} 2>&1
 else
     mkdir $rawDIR
-    echo "Folder $rawDIR does not exist, making $rawDIR" >> ${record} 2>&1
+    echo "Folder $rawDIR does not exist" >> ${record} 2>&1
+    exit
 fi
 
 if [ -d $indexedDIR ]; then
     echo "Folder $indexedDIR exists ..." >> ${record} 2>&1
 else
     mkdir $indexedDIR
-    echo "Folder $indexedDIR does not exist, making $indexedDIR" >> ${record} 2>&1
+    echo "Folder $indexedDIR does not exist" >> ${record} 2>&1
+    exit
 fi
 
 if [ -d $alignDIR ]; then
@@ -57,8 +60,8 @@ else
 fi
 
 #Alignment parameters 
-MULTIMAP=("20" "25" "30" "35" "40" "45")
-MISMATCH=("2" "5" "10" "15" "20")
+MULTIMAP=("20" "25" "30" "35" "40" "45" "50" "60")
+MISMATCH=("2" "5" "7" "10" "12" "15" "20")
 
 echo "Commencing alignments" >> ${record} 2>&1
 date >> ${record} 2>&1
@@ -79,7 +82,7 @@ for file in ${READ}; do
 			
 
 			#Run STAR
-			STAR --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax ${iMatch} --outFilterMultimapNmax ${iMap} --outFileNamePrefix ${alignDIR}/${readname}.STAR.${iMatch}.${iMap}. --outSAMstrandField intronMotif --outSAMattributes All --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No  
+			STAR --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax ${iMatch} --outFilterMultimapNmax ${iMap} --outFileNamePrefix ${alignDIR}/${readname}.STAR.${iMatch}.${iMap}. --outSAMstrandField intronMotif --outSAMattributes All --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No  2> align.err
 
 	 		cd ${alignDIR}
 			# Make bam index
@@ -94,22 +97,18 @@ for file in ${READ}; do
 			echo "Completed alignment for ${readname} with ${iMap} multimapping and ${iMatch} mismatches" >> ${record} 2>&1
 			date >> ${record} 2>&1
 
-
 			cd ${rawDIR}
 
 		done
 
 	done
-	
 
-	gzip Mut-F2-Rep1_CGTACG_L007_R1.fastq
-	gzip Mut-F2-Rep1_CGTACG_L007_R2.fastq
-
-	cd /mnt/project/Data/Mouse/
+	cd ${recordDIR}
 	
-	cat record.txt | mail -s "finished" brittany.howell1@gmail.com 
+	cat ${record} | mail -s "finished Alignment" brittany.howell1@gmail.com 
 	echo "Email sent"  >> ${record} 2>&1
 
 done
 
 echo "Exiting program" >> ${record} 2>&1
+echo "Complete"

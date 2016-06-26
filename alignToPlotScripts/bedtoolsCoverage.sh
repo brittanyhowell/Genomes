@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Data folders
-READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007-both-ORF2
+READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-ext
 L1DIR=/mnt/project/Data/Mouse/locationMouse
 L1=L1_Mouse_merge_sort_ORF2only-bothORF.bed
-OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-merge
+OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-ext
 
 # File name changes
-trunc=".Aligned.sortedByCoord.out-bothORF-ORF2.bed"
-newName=".bothorf.ORF2only.coverage.bed"
+trunc=".Aligned.sortedByCoord.out.O2.bO.bed"
+newName=".O2.bO.coverage.bed"
 
 # Keeping records
 recordDIR=/mnt/project/Coverage/Scripts/record/

@@ -3,14 +3,14 @@
 ## Date: 10-6-2016
 
 # Working folders
-BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
+BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007ext
 COORDDIR=/mnt/project/Data/Mouse/locationMouse
-COORD=L1_Mouse_bothorf.bed
-OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1_CGTACG_L007-BothORF
+COORD=L1_Mouse_merge_sort_ORF2only-bothORF.bed
+OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-ext
 recordDIR=/mnt/project/Coverage/Scripts/record/
-record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1bothORF.txt 
-error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1bothORF.err
-RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1bothORF.err.log
+record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1ext.txt 
+error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1ext.err
+RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1ext.err.log
 
 # Check and make record
 if [ -f ${record} ]; then
@@ -62,7 +62,7 @@ for file in *.bed ; do
 filename=${file%.bed}
 	
 	echo "Commencing intersect for ${filename}" >> ${record} 2>&1
-	bedtools intersect -a  ${BEDDir}/${file} -b  ${COORDDIR}/${COORD} > ${OUTDIR}/${filename}-ORF2only.bed 2> ${error}
+	bedtools intersect -a  ${BEDDir}/${file} -b  ${COORDDIR}/${COORD} > ${OUTDIR}/${filename}.O2.bO.bed 2> ${error}
 
 done
 

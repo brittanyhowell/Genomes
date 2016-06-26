@@ -66,18 +66,18 @@ echo "Plots renamed"
  
  cd ${Scripts}
  echo "Making LaTeX plots"
-./LatexCoveragePlots.sh
+./LatexCoveragePlots.sh ${Plots}
 
 echo "Making summary Plot"
 
 Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf ${Plots}/SummaryPlotNum.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf
 
 echo "Making summary Latex table"
-./LatexCoverageTable.sh
+./LatexCoverageTable.sh ${Plots}
 
 echo "Making Latex Summary Plot"
 
-./LatexCoverageSummaryPlot.sh
+./LatexCoverageSummaryPlot.sh ${Plots}
 
 
 

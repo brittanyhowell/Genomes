@@ -1,66 +1,70 @@
-meanFrac <- read.table(file = "~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/meanFraction.txt")
-meanNum <- read.table(file = "~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/meanNumber.txt")
+args = commandArgs(trailingOnly = TRUE)
+# test if there is at least one argument: if not, return an error
+if (length(args)==0) {
+  stop("At least one argument must be supplied (input file).n", call.=FALSE)
+} else if (length(args)==1) {
+  # default output file
+  args[2] = "out.txt"
+}
+
+meanFrac <- read.table(file = args[1])
+meanNum <- read.table(file = args[2])
 colnames(meanFrac) <- c("Num", "Values")
 colnames(meanNum) <- c("Num", "Values")
 
-parameters <- read.table("~/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts/Parameters.txt")
-parametersR <- read.table("~/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts/ParametersR.txt")
+parametersMatch <- read.table(args[10])
+parametersMap <- read.table(args[11])
 
-means <- cbind(parameters, parametersR, meanFrac$Values, meanNum$Values, deparse.level = 0)
+
+means <- cbind(parametersMatch, parametersMap, meanFrac$Values, meanNum$Values, deparse.level = 0)
 
 colnames(means) <- c("Mismatches", "MultiMaps", "fractionCovered", "depthAtCovered" )
 
 meansDF <- as.data.frame(means)
 
-write.table(means, file = "~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/SummaryTable.txt")
+write.table(means, file = args[3])
 
-pdf("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/SummaryPlot.pdf")
-plot(meansDF$fractionCovered, meansDF$depthAtCovered, 
-     main = 'Average depth of covered L1 bases', 
+pdf(args[4], width = 10, height = 8)
+plot(meansDF$depthAtCovered, meansDF$fractionCovered,
+     main = 'Average depth of covered L1 bases',
      ylab = 'Mean depth of covered bases in L1 elements',
-     xlab = 'Mean proportion of L1 bases covered by at least one read' )
-dev.off()
+     xlab = 'Mean proportion of L1 bases covered by at least one read', type = 'n')
+text(meansDF$depthAtCovered, meansDF$fractionCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=1.1)
+graphics.off()
 
+pdf(args[5])
+plot(meansDF$fractionCovered, meansDF$depthAtCovered, 
+     main = 'Average depth of covered L1 bases',
+     ylab = 'Mean depth of covered bases in L1 elements',
+     xlab = 'Mean proportion of L1 bases covered by at least one read', type = 'n')
+text(meansDF$fractionCovered, meansDF$depthAtCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=1.1)
+graphics.off()
 
 # Playing with plots
-pdf("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/Summary-MismatchFraction.pdf", width=12, height=8)
-plot(meansDF$Mismatches, meansDF$fractionCovered, 
+pdf(args[6], width=6, height=6)
+plot(meansDF$Mismatches, meansDF$fractionCovered, xlim = c(0,21),
+     ylab = 'Mean proportion covered',
+     xlab = 'Number of allowed mismatches', type = 'n')
+text(meansDF$Mismatches, meansDF$fractionCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=1.1)
+graphics.off()
+
+pdf(args[7], width=6, height=6)
+plot(meansDF$MultiMaps, meansDF$fractionCovered, xlim = c(19,46),
+     ylab = 'Mean proportion covered',
+     xlab = 'Number of reads allowed to map to the same coordinate', type = 'n')
+text(meansDF$MultiMaps, meansDF$fractionCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=1.1)
+graphics.off()
+
+pdf(args[8], width=6, height=6)
+plot(meansDF$Mismatches, meansDF$depthAtCovered, xlim = c(0,21),
      ylab = 'Mean depth of covered bases in L1 elements',
      xlab = 'Number of allowed mismatches', type = 'n')
-text(meansDF$Mismatches, meansDF$fractionCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=0.8)
-dev.off()
+text(meansDF$Mismatches, meansDF$depthAtCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=1.1)
+graphics.off()
 
-pdf("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/Summary-MultimapFraction.pdf", width=12, height=8)
-plot(meansDF$MultiMaps, meansDF$fractionCovered, 
+pdf(args[9], width=6, height=6)
+plot(meansDF$MultiMaps, meansDF$depthAtCovered, xlim = c(19,46),
      ylab = 'Mean depth of covered bases in L1 elements',
      xlab = 'Number of reads allowed to map to the same coordinate', type = 'n')
-text(meansDF$MultiMaps, meansDF$fractionCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=0.8)
-dev.off()
-
-pdf("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/Summary-MismatchDepth.pdf", width=12, height=8)
-plot(meansDF$Mismatches, meansDF$depthAtCovered, 
-     ylab = 'Mean depth of covered bases in L1 elements',
-     xlab = 'Number of allowed mismatches', type = 'n')
-text(meansDF$Mismatches, meansDF$depthAtCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=0.8)
-dev.off()
-
-pdf("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/Summary-MultiFraction.pdf", width=12, height=8)
-plot(meansDF$MultiMaps, meansDF$depthAtCovered, 
-     ylab = 'Mean depth of covered bases in L1 elements',
-     xlab = 'Number of reads allowed to map to the same coordinate', type = 'n')
-text(meansDF$MultiMaps, meansDF$depthAtCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=0.8)
-dev.off()
-
-#BestWorst <- read.table("./ReadCoverage/Mut-F2-Rep-1NotPlots/SummaryBestTable.txt")
-#colnames(BestWorst) <- c("Mismatch", "Multimap", "Proportion at depth", "Mean depth of covered bases" )
-
-#dBestWorst <- density(BestWorst$Multimap)
-#plot(dBestWorst)
-
-#plot(BestWorst$`Proportion at depth`, BestWorst$`Mean depth of covered bases`, type = 'n',
- #    main = 'Mismatch and multimapping parameters for the highest and lowest values', 
- #    ylab = 'Mean depth of covered bases in L1 elements',
-#     xlab = 'Mean proportion of L1 bases covered by at least one read' )
-#text(BestWorst$`Proportion at depth`, BestWorst$`Mean depth of covered bases`, paste(round(BestWorst$Mismatch, 2), round(BestWorst$Multimap, 2), sep=", "), cex=0.8)
-
-
+text(meansDF$MultiMaps, meansDF$depthAtCovered, paste(meansDF$Mismatches, meansDF$MultiMaps, sep=", "), cex=1.1)
+graphics.off()

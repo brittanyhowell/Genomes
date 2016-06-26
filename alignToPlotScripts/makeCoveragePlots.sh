@@ -2,16 +2,10 @@
 #/bin/bash
 
 #Merge files
-COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-merge/*
-CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-merge
+COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-ext/*
+CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-ext
 Scripts=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts
-Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-merge-Plots
-
-#Non-merge files
-# COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1/*
-# CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1
-# Scripts=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts
-# Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots
+Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-ext-Plots
 
 
 echo "Commencing program"
@@ -25,9 +19,7 @@ for iPlot in *.bed ; do
 
 	if [ -f "${filename}.pdf" ]; then
 		rm "$filename.pdf" 
-		echo "Removed ${filename} PDFs" 
-	else 
-		echo "No ${filename} plot in Coverage folder to remove" 
+		echo "Removed ${filename} PDFs"	
 	fi 
 done
 
@@ -47,7 +39,6 @@ echo "Plotting coverage plots"
 for iCov in $COVERAGE; do 
 	
 	filename=${iCov%.coverage.bed}
-echo $filename
 	cd ${Scripts}
 	Rscript coverageAnalysis.R ${iCov} ${filename}.pdf ${filename}.zoom.pdf
 
@@ -79,7 +70,7 @@ echo "Plots renamed"
 
 echo "Making summary Plot"
 
-Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf
+Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf ${Plots}/SummaryPlotNum.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf
 
 echo "Making summary Latex table"
 ./LatexCoverageTable.sh

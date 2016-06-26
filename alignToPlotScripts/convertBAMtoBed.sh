@@ -3,11 +3,10 @@
 ## Date: 10-6-2016
 
 # Working folders
-TestAlignDIR=/mnt/project/Data/Mouse/alignedReads/Mut-F2-Rep1_CGTACG_L007
-BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007
-record=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1.txt 
-error=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1.log 
-ADEDATE=$(TZ="Australia/Adelaide" date)
+TestAlignDIR=/mnt/project/Data/Mouse/extendedAlignedReads
+BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007ext
+record=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1ext.txt 
+error=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1ext.log 
 
 
 if [ -f ${record} ]; then
@@ -20,7 +19,7 @@ else
 fi
 
 echo "Commencing program">> ${record} 2>&1
-echo $ADEDATE >> ${record} 2>&1
+TZ=Australia/Adelaide date >> ${record} 2>&1
 
 if [ -f ${error} ]; then
 	rm ${error}
@@ -74,7 +73,7 @@ for file in *.bam ; do
 
 done
 echo "Completed program" >> ${record} 2>&1
-echo $ADEDATE >> ${record} 2>&1
+TZ=Australia/Adelaide date >> ${record} 2>&1
 
 cat ${record} | mail -s "Finished conversion" brittany.howell1@gmail.com 
 	echo "Email sent"  >> ${record} 2>&1

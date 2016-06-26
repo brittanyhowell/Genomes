@@ -1,5 +1,3 @@
-setwd("~/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/")
-
 args = commandArgs(TRUE)
 
 # test if there is at least one argument: if not, return an error
@@ -21,26 +19,25 @@ colnames(coverage) <- c("chromosome", "start", "stop", "read", "Unique", "Strand
 depthAtCovered <- (coverage$`number overlapping features`/coverage$`Number bases at depth`)*101
 
 pdf(args[2])
-plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, 1), ylim = c(0,10), 
-     main = 'Average depth of covered L1 basesLa', 
+plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, 1), ylim = c(0,10),
+     main = 'Average depth of covered L1 bases',
      ylab = 'Depth of covered bases in L1 elements',
      xlab = 'Proportion of L1 bases covered by at least one read')
-dev.off
+graphics.off()
 
 pdf(args[3])
-plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, .2), ylim = c(1,2.5), 
-     main = 'Average depth of covered L1 bases', 
+plot(coverage$`Fraction of read at depth`, depthAtCovered, xlim = c(0, .2), ylim = c(1,2.5),
+     main = 'Average depth of covered L1 bases',
      ylab = 'Depth of covered bases in L1 elements',
      xlab = 'Proportion of L1 bases covered by at least one read')
-dev.off
+graphics.off()
 
 
 sink("meanFraction.txt", append=TRUE)
- mean(coverage$`Fraction of read at depth`)
+mean(coverage$`Fraction of read at depth`)
 sink()
 
 sortDAC <- sort(depthAtCovered)
 sink("meanNumber.txt", append = TRUE)
- mean(sortDAC)
+mean(sortDAC) 
 sink()
- 

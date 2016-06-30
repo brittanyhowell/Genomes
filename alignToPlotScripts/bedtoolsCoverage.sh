@@ -1,14 +1,17 @@
 #!/bin/bash
 
 # Data folders
-READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-ext
+READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-TEMP
 L1DIR=/mnt/project/Data/Mouse/locationMouse
 L1=L1_Mouse_merge_sort_ORF2only-bothORF.bed
-OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-ext
+OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-TEMP
 
 # File name changes
 trunc=".Aligned.sortedByCoord.out.O2.bO.bed"
 newName=".O2.bO.coverage.bed"
+
+#Purpose of run
+DETAILS="The data used is a bigger subset of the second round of alignments, which have a larger number of parameters. Only the 20 and 25 multimapping group is being used to get a picture of the results so far."
 
 # Keeping records
 recordDIR=/mnt/project/Coverage/Scripts/record/
@@ -52,6 +55,8 @@ echo "Commencing time: " >> ${record} 2>&1
 TZ=Australia/Adelaide date >> ${record} 2>&1
 echo "Commencing time: " >> ${error} 2>&1
 TZ=Australia/Adelaide date >> ${error} 2>&1
+
+echo ${DETAILS} >> ${record} 2>&1
 
 # Check OUTDIR exists 
 if [ -d $OUTDIR ]; then

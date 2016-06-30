@@ -41,3 +41,14 @@ sortDAC <- sort(depthAtCovered)
 sink("meanNumber.txt", append = TRUE)
 mean(sortDAC) 
 sink()
+
+sink("medFraction.txt", append=TRUE)
+median(coverage$`Fraction of read at depth`)
+sink()
+
+sortDAC <- sort(depthAtCovered)
+sink("medNumber.txt", append = TRUE)
+median(sortDAC) 
+sink()
+
+

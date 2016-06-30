@@ -96,7 +96,7 @@ else
 fi
 
 #Alignment parameters 
-MULTIMAP=("20" "25" "30" "35" "40" "45" "50" "60")
+MULTIMAP=( "25" "30" "35" "40" "45" "50" "60")
 MISMATCH=("2" "5" "7" "10" "12" "15" "20")
 
 echo "Commencing alignments" >> ${record} 2>&1

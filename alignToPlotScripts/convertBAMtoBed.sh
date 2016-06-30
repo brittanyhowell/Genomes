@@ -3,10 +3,10 @@
 ## Date: 10-6-2016
 
 # Working folders
-TestAlignDIR=/mnt/project/Data/Mouse/extendedAlignedReads
-BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007ext
-record=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1ext.txt 
-error=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1ext.log 
+TestAlignDIR=/mnt/project/Data/Mouse/tempBAMS/TEMPBAM
+BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007TEMP
+record=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1TEMP.txt 
+error=/mnt/project/Data/Mouse/Scripts/record/recordBAMtoBEDRep1TEMP.err 
 
 
 if [ -f ${record} ]; then
@@ -67,7 +67,7 @@ for file in *.bam ; do
   	  cd $TestAlignDIR
   	  echo "converting BAM to BED" >> ${record} 2>&1
   	  bedtools bamtobed -i $file > $readname.bed; 2>${error}
-  	  mv $readname.bed $BEDDir
+  	  mv ${readname}.bed $BEDDir
 	fi	
 	
 

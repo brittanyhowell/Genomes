@@ -1,15 +1,15 @@
 ## Script uses R to make plots from coverage data.
 #/bin/bash
 
-#Merge files
-COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1/*
-CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1
+# files
+COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-TEMP/*
+CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-TEMP
 Scripts=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts
-Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots
+Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots-TEMP
 
 # Map and Match parameter tables
-Match=${Scripts}/ParameterTables/ParametersMatch.txt
-Map=${Scripts}/ParameterTables/ParametersMaps.txt
+Match=${Scripts}/ParameterTables/ParametersMatchTEMP.txt
+Map=${Scripts}/ParameterTables/ParametersMapsTEMP.txt
 
 echo "Commencing program"
 TZ="Australia/Adelaide" date
@@ -48,6 +48,9 @@ for iCov in $COVERAGE; do
 done
  mv meanNumber.txt ${Plots}
  mv meanFraction.txt ${Plots}
+mv medNumber.txt ${Plots}
+ mv medFraction.txt ${Plots}
+
  # # Move all files into plots folder
  cd ${CoverageDIR}
  mv *.pdf ${Plots}
@@ -75,8 +78,12 @@ echo "Making summary Plot"
 
 Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf ${Plots}/SummaryPlotNum.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf ${Match} ${Map}
 
-echo "Making summary Latex table"
+echo "Making median table"
+Rscript makeMedianTable.R ${Plots}/medFraction.txt ${Plots}/medNumber.txt ${Match} ${Map} ${Plots}/medianTable.txt
+
+echo "Making summary Latex tables"
 ./LatexCoverageTable.sh ${Plots}
+./LatexMedianTable.sh ${Plots}
 
 echo "Making Latex Summary Plot"
 

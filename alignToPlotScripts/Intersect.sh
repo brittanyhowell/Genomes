@@ -3,19 +3,22 @@
 ## Date: 10-6-2016
 
 # Working folders
-BEDDir=/mnt/project/Data/Mouse/BED/Mut-F2-Rep1_CGTACG_L007TEMP
+BEDDir=/mnt/project/Data/Mouse/BED/Last2
 COORDDIR=/mnt/project/Data/Mouse/locationMouse
 COORD=L1_Mouse_merge_sort_ORF2only-bothORF.bed
-OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-TEMP
+OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-Last2
+
+# File names
+TAIL="O2.bO.bed"
 
 #Purpose of run
-DETAILS="The data used is a bigger subset of the second round of alignments, which have a larger number of parameters. Only the 20 and 25 multimapping group is being used to get a picture of the results so far."
+DETAILS="Last2, these are the ones that failed."
 
 # record
 recordDIR=/mnt/project/Coverage/Scripts/record/
-record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1TEMP.txt 
-error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1TEMP.err
-RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectRep1TEMP.err.log
+record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectLast2.txt 
+error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectLast2.err
+RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectLast2.err.log
 
 # Check and make record
 if [ -f ${record} ]; then
@@ -70,7 +73,7 @@ filename=${file%.bed}
 	
 	echo "Commencing intersect for ${filename}" >> ${record} 2>&1
 	echo "Commencing intersect for ${filename}"
-	bedtools intersect -a  ${BEDDir}/${file} -b  ${COORDDIR}/${COORD} > ${OUTDIR}/${filename}.O2.bO.bed 2> ${error}
+	bedtools intersect -a  ${BEDDir}/${file} -b  ${COORDDIR}/${COORD} > ${OUTDIR}/${filename}.${TAIL} 2> ${error}
 	echo "Finished intersect"
 
 done

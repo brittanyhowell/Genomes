@@ -1,11 +1,10 @@
 #/bin/bash
 PlotsDIR=$1
+CoverageDIR=$2
 
 
 
-
-cd ${PlotsDIR}
-
+cd $PlotsDIR
 # Check if tablefile exists
 if [ -f coveragePlots.tex ]; then
 	rm coveragePlots.tex
@@ -20,18 +19,20 @@ fi
 for iPlot in *zoom.pdf ; do 
 
 filename=${iPlot%-zoom.pdf}
+
+
 captionName=$(echo $filename | sed 's/_/-/g')
 
 	echo "\begin{figure}[tbp]" >> coveragePlots.tex
 	echo "\centering"  >> coveragePlots.tex
 	echo "\makebox[\textwidth][c]{" >> coveragePlots.tex
 	echo "\begin{subfigure}[b]{.59\textwidth}" >> coveragePlots.tex
-	echo "\includegraphics[width=\linewidth]{/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/${filename}.pdf}" >> coveragePlots.tex
+	echo "\includegraphics[width=\linewidth]{${PlotsDIR}/${filename}.pdf}" >> coveragePlots.tex
 	echo "\vspace{-1cm}" >> coveragePlots.tex
 	echo "\caption{Average depth and proportion of L1 covered}" >> coveragePlots.tex
 	echo "\end{subfigure}" >> coveragePlots.tex
 	echo "\begin{subfigure}[b]{.59\textwidth}" >> coveragePlots.tex
-	echo "\includegraphics[width=\linewidth]{/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots/${filename}-zoom.pdf}" >> coveragePlots.tex
+	echo "\includegraphics[width=\linewidth]{${PlotsDIR}/${filename}-zoom.pdf}" >> coveragePlots.tex
 	echo "\vspace{-1cm}" >> coveragePlots.tex
 	echo "\caption{Enlarged lower left quartile of (a)}" >> coveragePlots.tex
 	echo "\end{subfigure}}" >> coveragePlots.tex
@@ -39,5 +40,6 @@ captionName=$(echo $filename | sed 's/_/-/g')
 	echo "\label{fig:coverage-${captionName}}" >> coveragePlots.tex
 	echo "\end{figure}" >> coveragePlots.tex                                             
 	echo "" >> coveragePlots.tex
-
+	echo "\clearpage" >> coveragePlots.tex
+	
 done

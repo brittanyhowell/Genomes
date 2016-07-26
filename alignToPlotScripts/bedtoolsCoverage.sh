@@ -1,23 +1,23 @@
 #!/bin/bash
 
 # Data folders
-READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-TEMP
+READS=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-Last2
 L1DIR=/mnt/project/Data/Mouse/locationMouse
 L1=L1_Mouse_merge_sort_ORF2only-bothORF.bed
-OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-TEMP
+OUTDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-Last2
 
 # File name changes
 trunc=".Aligned.sortedByCoord.out.O2.bO.bed"
 newName=".O2.bO.coverage.bed"
 
 #Purpose of run
-DETAILS="The data used is a bigger subset of the second round of alignments, which have a larger number of parameters. Only the 20 and 25 multimapping group is being used to get a picture of the results so far."
+DETAILS="Last 2. These ones failed"
 
 # Keeping records
 recordDIR=/mnt/project/Coverage/Scripts/record/
-record=/mnt/project/Coverage/Scripts/record/recordCoverage-Merge.txt 
-error=/mnt/project/Coverage/Scripts/record/recordCoverage-Merge.err
-RecordError=/mnt/project/Coverage/Scripts/record/recordCoverage-Merge.err.log 
+record=/mnt/project/Coverage/Scripts/record/recordCoverage-Last2.txt 
+error=/mnt/project/Coverage/Scripts/record/recordCoverage-Last2.err
+RecordError=/mnt/project/Coverage/Scripts/record/recordCoverage-Last2.err.log 
 
 
 # Check and make record

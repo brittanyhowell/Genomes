@@ -2,14 +2,14 @@
 #/bin/bash
 
 # files
-COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-TEMP/*
-CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-TEMP
+COVERAGE=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Full/*
+CoverageDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Full
 Scripts=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts
-Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots-TEMP
+Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Plots-Full
 
 # Map and Match parameter tables
-Match=${Scripts}/ParameterTables/ParametersMatchTEMP.txt
-Map=${Scripts}/ParameterTables/ParametersMapsTEMP.txt
+Match=${Scripts}/ParameterTables/ParametersMatch.txt
+Map=${Scripts}/ParameterTables/ParametersMaps.txt
 
 echo "Commencing program"
 TZ="Australia/Adelaide" date

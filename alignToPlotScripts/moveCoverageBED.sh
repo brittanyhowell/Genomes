@@ -2,8 +2,8 @@
 ## moveCoverageBED.sh moves all BEDs from a folder into the necessary place
 
 # Data folders
-BEDDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-TEMP/*
-COVDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-TEMP
+BEDDIR=/mnt/project/Coverage/Mut-F2-Rep1_CGTACG_L007-Last2/*
+COVDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Mut-F2-Rep1-Last2
 Param=/mnt/project/Data/Mouse/tempBAMS/someextendedAlignmentOutputData/Parameters/*
 ParamDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Genomes/alignToPlotScripts/ParameterTables
 

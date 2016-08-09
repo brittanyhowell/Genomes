@@ -81,7 +81,7 @@ for file in ${READ}; do
 	echo "Running STAR for ${readname}" 		
 
 	#Run STAR
- STAR --runThreadN 8 --genomeDir ${indexedDIR} --genomeLoad LoadAndKeep --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax 7 --outFilterMultimapNmax 50 --outFileNamePrefix ${alignDIR}/${readname}.STAR. --outSAMstrandField intronMotif --outSAMattributes All --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No 
+ STAR --runThreadN 8 --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax 7 --outFilterMultimapNmax 50 --outFileNamePrefix ${alignDIR}/${readname}.STAR. --outSAMstrandField intronMotif --outSAMattributes All  --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No 
 
 		cd ${alignDIR}
 

@@ -76,8 +76,6 @@ READ=$(ls *_R1*)
 
 for file in ${READ}; do
 
-	gzip -d ${file}.fastq.gz 
-
 	readname=${file%_R1.fastq}
 
 	echo "Running STAR for ${readname}" 		
@@ -96,9 +94,6 @@ for file in ${READ}; do
 	mv ${readname}.STAR.Log.final.out ${alignOutDIR} 
 	mv ${readname}.STAR.Log.progress.out ${alignOutDIR} 
 
-	# Zip fasta file
-	echo "Zipping read file"
-	gzip ${file}
 
 done
 

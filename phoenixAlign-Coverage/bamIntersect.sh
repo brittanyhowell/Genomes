@@ -21,12 +21,12 @@ module load BEDTools/2.25.0-foss-2015b
 
 # # Working folders
 # BAMDir=/data/rc003/Brittany/Alignment/bamMouse
-# COORDDIR=/data/rc003/Brittany/Data/L1Location
-# COORD=L1_mouseORF1-2-4-8kb.bed
-# OUTDIR=/data/rc003/Brittany/Alignment/intersect
+# COORDDIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations
+# COORD=ActiveClusteredL1s.bed
+# OUTDIR=/data/rc003/Brittany/Alignment/intersect/Clus
 
 # File names
-TAIL="O2.bO.bam"
+TAIL="clus.bam"
 
 # Check BAMDir exists 
 if [ -d $BAMDir ]; then

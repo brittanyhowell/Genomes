@@ -2,7 +2,7 @@
 ## Script intersects Bams with L1 locations (BED)
 ## Date: 10-8-2016
 
-# Invoked by: BAMDir=/data/rc003/Brittany/Alignment/bamMouse COORDDIR=/data/rc003/Brittany/Data/L1Location COORD=L1_mouseORF1-2-4-8kb.bed OUTDIR=/data/rc003/Brittany/Alignment/intersect sbatch bamLowIntersect.sh
+# Invoked by: # BAMDir=/data/rc003/Brittany/Alignment/bamMouse COORDDIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations COORD=ActiveClusteredL1s.bed OUTDIR=/data/rc003/Brittany/Alignment/intersect/Clus sbatch bamIntersect.sh
 
 #SBATCH -p batch
 #SBATCH -N 1 
@@ -28,6 +28,10 @@ module load BEDTools/2.25.0-foss-2015b
 # File names
 TAIL="clus.bam"
 
+
+echo "Commencing"
+TZ=Australia/Adelaide date
+
 # Check BAMDir exists 
 if [ -d $BAMDir ]; then
 	echo "Bam folder intact"
@@ -48,6 +52,7 @@ fi
 
 cd ${BAMDir}
 
+
 for file in *.bam ; do 
 
 filename=${file%.bam}
@@ -59,4 +64,5 @@ filename=${file%.bam}
 done
 
 echo "Complete"
+TZ=Australia/Adelaide date
 

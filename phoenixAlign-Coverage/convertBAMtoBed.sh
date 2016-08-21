@@ -2,7 +2,7 @@
 
 # Invoked by:
 #
-# TestAlignDIR=/data/rc003/Brittany/Alignment/intersect BEDDir=/data/rc003/Brittany/Alignment/BED sbatch BamToBed.sh
+# TestAlignDIR=/data/rc003/Brittany/Alignment/intersect/Clus BEDDir=/data/rc003/Brittany/Alignment/BED/Clus sbatch BamToBed.sh
 #
 
 #SBATCH -p batch
@@ -21,8 +21,8 @@
 module load BEDTools/2.25.0-foss-2015b
 
 # Working folders
-#TestAlignDIR=/data/rc003/Brittany/Alignment/intersect
-#BEDDir=/data/rc003/Brittany/Alignment/BED
+#TestAlignDIR=/data/rc003/Brittany/Alignment/intersect/Clus
+#BEDDir=/data/rc003/Brittany/Alignment/BED/Clus
 
 
 # Check BED folder exists, if not, make it

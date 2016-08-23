@@ -2,30 +2,23 @@
 
 TEMPFILE=HighCov.txt
 NUMFILE=HighCovL1s.txt
-BEDDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Combined
-BED=AllMut.STAR.active.coverage.bed 
-OUTFILE=temp_${ELEMENTS}_${TEMPFILE}
-Elements="2"
+BEDDIR=/data/rc003/Brittany/Alignment/CoverageClus
+ELEMENTS="2"
+OUTFILE="${BED%.coverage.bed}.cov_${ELEMENTS}.bed"
 
 
 cd ${BEDDIR}
-touch ${TEMPFILE}
-touch ${NUMFILE}
+echo pwd
 
-
+touch ${OUTFILE}
 
 for file in *.bed; do 
+echo ${file}
 	awk '{
 		if ($7 >= '${ELEMENTS}')
-			print $0 }' ${file} >> 
-	
-	NumSeq=$(wc -l temp_${ELEMENTS}_${TEMPFILE})
-
-	echo ${NumSeq}
+			print $0 }' ${file} >> ${OUTFILE}
 
 done
-rm temp*
-complete
 
 
 

@@ -2,13 +2,13 @@
 ## Script intersects Bams with L1 locations (BED)
 ## Date: 10-8-2016
 
-# Invoked by: BAMDir=/data/rc003/Brittany/Alignment/bamMouse COORDDIR=/data/rc003/Brittany/Data/L1Location COORD=L1_mouseORF1-2-4-8kb.bed OUTDIR=/data/rc003/Brittany/Alignment/intersect sbatch bamIntersect.sh
+# Invoked by: BAMDir=/data/rc003/Brittany/Alignment/bamMouse COORDDIR=/data/rc003/Brittany/Data/L1Location COORD=L1_mouseORF1-2-4-8kb.bed OUTDIR=/data/rc003/Brittany/Alignment/intersect sbatch bamLowIntersect.sh
 
 #SBATCH -p batch
 #SBATCH -N 1 
-#SBATCH -n 8  				
+#SBATCH -n 8 
 #SBATCH --time=0-04:00
-#SBATCH --mem=50GB 			
+#SBATCH --mem=20GB 
 
 # Notification configuration 
 #SBATCH --mail-type=END                                         
@@ -51,10 +51,9 @@ cd ${BAMDir}
 for file in *.bam ; do 
 
 filename=${file%.bam}
-	echo "filename is ${filename}"
 
 	echo "Commencing intersect for ${filename}"
-	intersectBed -abam  ${BEDDir}/${file} -b  ${COORDDIR}/${COORD} > ${OUTDIR}/${filename}.${TAIL} 
+	intersectBed -abam  ${file} -b  ${COORDDIR}/${COORD} > ${OUTDIR}/${filename}.${TAIL} 
 	echo "Finished intersect"
 
 done

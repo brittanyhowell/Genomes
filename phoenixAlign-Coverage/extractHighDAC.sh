@@ -9,7 +9,7 @@ DAC="2"
 
 cd ${BEDDIR}
 
-for file in *.bed; do 
+for file in *coverage.bed; do 
 
 	# Filename changes
 	Filename="${file%.coverage.bed}"
@@ -23,9 +23,9 @@ for file in *.bed; do
 	    echo "${OUTFILE} did not exist" 
 	fi
 
-	cat ${file} | awk '{if ($7 > 0.5 ) print}'| awk '{print $0 "\t" (($7/$8)*101)}' > ${OUTFILE}
+	cat ${file} | awk '{if ($7 > 0.5 ) print}'| awk '{print $0 "\t" (($7/$8)*101)}' | awk '{if ($11 >= 1.9) print}'> ${OUTFILE}
 
 done
 
 
-
+echo "complete"

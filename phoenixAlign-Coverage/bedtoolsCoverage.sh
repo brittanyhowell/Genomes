@@ -2,7 +2,7 @@
 ## Script invokes Bedcoverage
 ## Date: 10-8-2016
 
-# Invoked by: READS=/data/rc003/Brittany/Alignment/BED/Clus L1DIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations L1=ActiveClusteredL1s.bed  OUTDIR=/data/rc003/Brittany/Alignment/CoverageClus sbatch bedtoolsCoverage.sh
+# Invoked by: READS=/data/rc003/Brittany/Alignment/BED L1DIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations L1=ActiveClusteredL1s.bed OUTDIR=/data/rc003/Brittany/Coverage/Active_clustered sbatch bedtoolsCoverage.sh
 
 #SBATCH -p batch
 #SBATCH -N 1 
@@ -20,14 +20,14 @@
 module load BEDTools/2.25.0-foss-2015b
 
 # # Data folders
-# READS=/data/rc003/Brittany/Alignment/BED/Clus 
+# READS=/data/rc003/Brittany/Alignment/BED
 # L1DIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations 
 # L1=ActiveClusteredL1s.bed  
-# OUTDIR=/data/rc003/Brittany/Alignment/CoverageClus 
+# OUTDIR=/data/rc003/Brittany/Coverage/Active_clustered
 
 # File name changes
-trunc=".Aligned.sortedByCoord.out.clus.bed"
-newName=".active.coverage.bed"
+trunc=".Aligned.sortedByCoord.out.O2.bO.bed"
+newName=".active.clustered.coverage.bed"
 
 
 # Check OUTDIR exists 

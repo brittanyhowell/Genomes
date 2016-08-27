@@ -3,8 +3,8 @@
 # and places them into a nice BED again
 
 
-BEDDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Combined/Active
-DAC="2"
+BEDDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Combined/BothORF
+DAC="1.9"
 
 
 cd ${BEDDIR}
@@ -23,7 +23,7 @@ for file in *coverage.bed; do
 	    echo "${OUTFILE} did not exist" 
 	fi
 
-	cat ${file} | awk '{if ($7 > 0.5 ) print}'| awk '{print $0 "\t" (($7/$8)*101)}' | awk '{if ($11 >= 1.9) print}'> ${OUTFILE}
+	cat ${file} | awk '{if ($7 > 0.5 ) print}'| awk '{print $0 "\t" (($7/$8)*101)}' | awk '{if ($11 >= '${DAC}') print}'> ${OUTFILE}
 
 done
 

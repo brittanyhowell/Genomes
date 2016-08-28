@@ -3,7 +3,7 @@
 # and places them into a nice BED again
 
 
-BEDDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCoverage/Combined/BothORF
+BEDDIR=/data/rc003/Brittany/Coverage/AllL1sNoClus
 DAC="1.9"
 
 
@@ -20,7 +20,7 @@ for file in *coverage.bed; do
 		rm ${OUTFILE}
 	    echo "${OUTFILE} exists... removing" 
 	else
-	    echo "${OUTFILE} did not exist" 
+	    echo "${OUTFILE} did not exist... Calculating" 
 	fi
 
 	cat ${file} | awk '{if ($7 > 0.5 ) print}'| awk '{print $0 "\t" (($7/$8)*101)}' | awk '{if ($11 >= '${DAC}') print}'> ${OUTFILE}

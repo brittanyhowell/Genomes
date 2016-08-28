@@ -2,13 +2,13 @@
 ## Script invokes Bedcoverage
 ## Date: 10-8-2016
 
-# Invoked by: READS=/data/rc003/Brittany/Alignment/BED L1DIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations L1=ActiveClusteredL1s.bed OUTDIR=/data/rc003/Brittany/Coverage/Active_clustered sbatch bedtoolsCoverage.sh
+# Invoked by: READS=/data/rc003/Brittany/intersect/BED L1DIR=/data/rc003/Brittany/Data/L1Location L1=L1_mouseORF1-2-4-8kb.bed OUTDIR=/data/rc003/Brittany/Coverage/RetryActiveNoClus sbatch covNoClus.sh
 
 #SBATCH -p batch
 #SBATCH -N 1 
 #SBATCH -n 8 
-#SBATCH --time=0-08:00
-#SBATCH --mem=20GB 
+#SBATCH --time=0-01:00
+#SBATCH --mem=10GB 
 
 # Notification configuration 
 #SBATCH --mail-type=END                                         
@@ -20,14 +20,14 @@
 module load BEDTools/2.25.0-foss-2015b
 
 # # Data folders
-# READS=/data/rc003/Brittany/Alignment/BED
-# L1DIR=/data/rc003/Brittany/Data/L1Location/ClusterLocations 
-# L1=ActiveClusteredL1s.bed  
-# OUTDIR=/data/rc003/Brittany/Coverage/Active_clustered
+# READS=/data/rc003/Brittany/intersect/BED
+# L1DIR=/data/rc003/Brittany/Data/L1Location
+# L1=L1_mouseORF1-2-4-8kb.bed
+# OUTDIR=/data/rc003/Brittany/Coverage/RetryActiveNoClus
 
 # File name changes
 trunc=".Aligned.sortedByCoord.out.O2.bO.bed"
-newName=".active.clustered.coverage.bed"
+newName=".active.noClus.coverage.bed"
 
 
 # Check OUTDIR exists 

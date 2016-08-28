@@ -2,7 +2,7 @@
 ## Script invokes Bedcoverage
 ## Date: 10-8-2016
 
-# Invoked by: READS=/data/rc003/Brittany/intersect/BED/ActiveAtma L1DIR=/data/rc003/Brittany/Data/L1Location L1=L1_mouseORF1-2-4-8kb.bed OUTDIR=/data/rc003/Brittany/Coverage/RetryActiveNoClus sbatch covNoClus.sh 
+# Invoked by: READS=/data/rc003/Brittany/intersect/BED/ActiveAtma L1DIR=/data/rc003/Brittany/Data/L1Location L1=ClusActiveL1s.bed  OUTDIR=/data/rc003/Brittany/Coverage/RetryActiveWithClus sbatch covClus.sh 
 
 #SBATCH -p batch
 #SBATCH -N 1 
@@ -22,12 +22,12 @@ module load BEDTools/2.25.0-foss-2015b
 # # Data folders
 # READS=/data/rc003/Brittany/intersect/BED/ActiveAtma
 # L1DIR=/data/rc003/Brittany/Data/L1Location
-# L1=L1_mouseORF1-2-4-8kb.bed
-# OUTDIR=/data/rc003/Brittany/Coverage/RetryActiveNoClus
+# L1=ClusActiveL1s.bed 
+# OUTDIR=/data/rc003/Brittany/Coverage/RetryActiveWithClus
 
 # File name changes
 trunc=".Aligned.sortedByCoord.out.Active.bed"
-newName=".active.noClus.coverage.bed"
+newName=".active.Clus.coverage.bed"
 
 
 # Check OUTDIR exists 

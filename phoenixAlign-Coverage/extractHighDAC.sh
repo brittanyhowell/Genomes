@@ -3,7 +3,7 @@
 # and places them into a nice BED again
 
 
-BEDDIR=/data/rc003/Brittany/Coverage/AllL1sNoClus
+BEDDIR=/data/rc003/Brittany/Coverage/AllL1sClus
 DAC="1.9"
 
 

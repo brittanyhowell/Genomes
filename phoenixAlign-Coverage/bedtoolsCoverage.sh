@@ -2,7 +2,7 @@
 ## Script invokes Bedcoverage
 ## Date: 10-8-2016
 
-# Invoked by: READS=/data/rc003/Brittany/intersect/BED/AllL1sClustered L1DIR=/data/rc003/Brittany/Data/L1Location L1=ClusAllL1s.bed   OUTDIR=/data/rc003/Brittany/Coverage/AllL1sClus sbatch covClus.sh 
+# Invoked by: READS=/data/rc003/Brittany/intersect/BED/AllL1sClustered L1DIR=/data/rc003/Brittany/Data/L1Location L1=ClusAllL1s.bed   OUTDIR=/data/rc003/Brittany/Coverage/SecondAllL1sClus sbatch bedtoolsCoverage.sh
 
 #SBATCH -p batch
 #SBATCH -N 1 
@@ -23,7 +23,7 @@ module load BEDTools/2.25.0-foss-2015b
 # READS=/data/rc003/Brittany/intersect/BED/AllL1sClustered
 # L1DIR=/data/rc003/Brittany/Data/L1Location
 # L1=ClusAllL1s.bed 
-# OUTDIR=/data/rc003/Brittany/Coverage/AllL1sClus
+# OUTDIR=/data/rc003/Brittany/Coverage/SecondAllL1sClus
 
 # File name changes
 trunc=".Aligned.sortedByCoord.out.clus.bed"

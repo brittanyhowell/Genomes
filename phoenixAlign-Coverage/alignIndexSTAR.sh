@@ -3,8 +3,8 @@
 ## Date: 31-5-2016
 # Invoked by:
 #
-# rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/combinedRaw indexedDIR=/data/rc003/Brittany/genomes/indexedMouse alignDIR=/data/rc003/Brittany/Alignment/bamMouse alignOutDIR=/data/rc003/Brittany/Alignment/outputMouse sbatch STAR.sh
-#
+# rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/raw_data/two indexedDIR=/data/rc003/Brittany/genomes/indexedMouse alignDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight alignOutDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight/output sbatch STAR.sh
+
 
 #SBATCH -p batch
 #SBATCH -N 1 
@@ -25,12 +25,12 @@ module load SAMtools/1.2-foss-2015b
 
 
 # # Raw folders
-# rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/combinedRaw
+# rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/raw_data/two
 # indexedDIR=/data/rc003/Brittany/genomes/indexedMouse
 
 # #Output
-# alignDIR=/data/rc003/Brittany/Alignment/bamMouse
-# alignOutDIR=/data/rc003/Brittany/Alignment/outputMouse
+# alignDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight
+# alignOutDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight/output
 
 
 # Check all folders exist
@@ -81,13 +81,16 @@ for file in ${READ}; do
 	echo "Running STAR for ${readname}" 		
 
 	#Run STAR
- STAR --runThreadN 8 --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax 7 --outFilterMultimapNmax 50 --outFileNamePrefix ${alignDIR}/${readname}.STAR. --outSAMstrandField intronMotif --outSAMattributes All  --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No 
+ STAR --runThreadN 8 --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax 10 --outFilterMultimapNmax 45 --outFileNamePrefix ${alignDIR}/${readname}.STAR. --outSAMstrandField intronMotif --outSAMattributes All  --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No 
 
 		cd ${alignDIR}
 
 	# Make bam index
 	echo "Making bam index" 
     samtools index ${readname}.STAR.Aligned.sortedByCoord.out.bam 
+
+    echo "Making sam from bam "
+    samtools view -h ${readname}.STAR.Aligned.sortedByCoord.out.bam > ${readname}.STAR.Aligned.sortedByCoord.out.sam
 
 	# Move alignment information files into separate folder
 	mv ${readname}.STAR.Log.out ${alignOutDIR} 
@@ -96,4 +99,6 @@ for file in ${READ}; do
 
 
 done
+
+
 

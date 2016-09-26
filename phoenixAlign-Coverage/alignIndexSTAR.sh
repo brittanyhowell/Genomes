@@ -9,7 +9,7 @@
 #SBATCH -p batch
 #SBATCH -N 1 
 #SBATCH -n 8  				
-#SBATCH --time=0-09:00
+#SBATCH --time=0-03:00
 #SBATCH --mem=50GB 			
 
 # Notification configuration 
@@ -33,50 +33,7 @@ module load SAMtools/1.2-foss-2015b
 # alignOutDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight/output
 
 
-# Check all folders exist
-
-if [ -d $rawDIR ]; then
-    echo "Folder $rawDIR exists ..." 
-else
-    mkdir $rawDIR
-    echo "Folder $rawDIR does not exist"     
-    exit
-fi
-
-if [ -d $indexedDIR ]; then
-    echo "Folder $indexedDIR exists ..." 
-else
-    mkdir $indexedDIR
-    echo "Folder $indexedDIR does not exist"     
-    exit
-fi
-
-if [ -d $alignDIR ]; then
-    echo "Folder $alignDIR exists ... replacing"     
-    rm -r ${alignDIR}
-    mkdir ${alignDIR}
-else
-    mkdir $alignDIR
-    echo "Folder $alignDIR does not exist, making $alignDIR" 
-fi
-
-if [ -d $alignOutDIR ]; then
-    echo "Folder $alignOutDIR exists ... replacing"     
-    rm -r ${alignOutDIR}
-    mkdir ${alignOutDIR}
-else
-    mkdir $alignOutDIR
-    echo "Folder $alignOutDIR does not exist, making $alignOutDIR" 
-fi
-
-
-# Move into reads folder
-cd ${rawDIR}
-READ=$(ls *_R1*)
-
-for file in ${READ}; do
-
-	readname=${file%_R1.fastq}
+readname=${1}
 
 	echo "Running STAR for ${readname}" 		
 
@@ -92,13 +49,22 @@ for file in ${READ}; do
     echo "Making sam from bam "
     samtools view -h ${readname}.STAR.Aligned.sortedByCoord.out.bam > ${readname}.STAR.Aligned.sortedByCoord.out.sam
 
+echo "moving files"
 	# Move alignment information files into separate folder
 	mv ${readname}.STAR.Log.out ${alignOutDIR} 
 	mv ${readname}.STAR.Log.final.out ${alignOutDIR} 
 	mv ${readname}.STAR.Log.progress.out ${alignOutDIR} 
 
+echo "Changing names"
+    # Changing names
+    mv ${readname}.STAR.Aligned.sortedByCoord.out.sam ${readname}.STAR.10.45.sam    
+    mv ${readname}.STAR.Aligned.sortedByCoord.out.bam ${readname}.STAR.10.45.bam
+    mv ${readname}.STAR.Aligned.sortedByCoord.out.bam.bai ${readname}.STAR.10.45.bam.bai    
 
-done
+
+echo "finished with ${readname}"
+
+
 
 
 

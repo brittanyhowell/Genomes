@@ -24,13 +24,7 @@ module load STAR/2.5.1a-foss-2015b
 module load SAMtools/1.2-foss-2015b
 
 
-# # Raw folders
-# rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/raw_data/two
-# indexedDIR=/data/rc003/Brittany/genomes/indexedMouse
 
-# #Output
-# alignDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight
-# alignOutDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight/output
 
 
 readname=${1}
@@ -46,8 +40,8 @@ readname=${1}
 	echo "Making bam index" 
     samtools index ${readname}.STAR.Aligned.sortedByCoord.out.bam 
 
-    echo "Making sam from bam "
-    samtools view -h ${readname}.STAR.Aligned.sortedByCoord.out.bam > ${readname}.STAR.Aligned.sortedByCoord.out.sam
+    # echo "Making sam from bam "
+    # samtools view -h ${readname}.STAR.Aligned.sortedByCoord.out.bam > ${readname}.STAR.Aligned.sortedByCoord.out.sam
 
 echo "moving files"
 	# Move alignment information files into separate folder
@@ -57,14 +51,10 @@ echo "moving files"
 
 echo "Changing names"
     # Changing names
-    mv ${readname}.STAR.Aligned.sortedByCoord.out.sam ${readname}.STAR.10.45.sam    
+    # mv ${readname}.STAR.Aligned.sortedByCoord.out.sam ${readname}.STAR.10.45.sam    
     mv ${readname}.STAR.Aligned.sortedByCoord.out.bam ${readname}.STAR.10.45.bam
     mv ${readname}.STAR.Aligned.sortedByCoord.out.bam.bai ${readname}.STAR.10.45.bam.bai    
 
 
 echo "finished with ${readname}"
-
-
-
-
 

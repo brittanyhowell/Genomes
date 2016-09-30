@@ -2,18 +2,14 @@
 ## Script submits multiple STAR scripts
 ## Date: 13-8-2016
 
-WkDIR=/data/rc003/Brittany/Clusters
-# CLUSTERS=("0" "1" "3" "4" "5" "13")
-# BigClus="0"
-CLUSTERS=("2")
-BigClus="1"
-# CLUSTERS=("2")
-# BigClus="3"
+# variables need to be here because the script checks if they exist
+rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data
+indexedDIR=/data/rc003/Brittany/genomes/indexedHuman
+alignDIR=/data/rc003/Brittany/humanAlignment
+alignOutDIR=/data/rc003/Brittany/humanAlignment/output
 
-rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/raw_data/ 
-indexedDIR=/data/rc003/Brittany/genomes/indexedMouse 
-alignDIR=/data/rc003/Brittany/Alignment/gapPlots 
-alignOutDIR=/data/rc003/Brittany/Alignment/gapPlots/output 
+# variables need to be here so the sbatch can call all of them. (trust me it's easier changing them up here than down there on line 63)
+variables=""
 
 
 # Check all folders exist
@@ -55,15 +51,18 @@ fi
 
 # Move into reads folder
 cd ${rawDIR}
-READ=$(ls *_R1*)
+READ=$(ls *_R1.fastq)
 
 for file in ${READ}; do
 
 	readname=${file%_R1.fastq}
+    echo "aligning for ${readname}"
 
-rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/raw_data/ indexedDIR=/data/rc003/Brittany/genomes/indexedMouse alignDIR=/data/rc003/Brittany/Alignment/gapPlots alignOutDIR=/data/rc003/Brittany/Alignment/gapPlots/output sbatch STAR.sh ${readname}
+rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data indexedDIR=/data/rc003/Brittany/genomes/indexedHuman alignDIR=/data/rc003/Brittany/humanAlignment alignOutDIR=/data/rc003/Brittany/humanAlignment/output    sbatch STAR.sh ${readname}
+
 
 done
 
 echo "Complete"
+
 

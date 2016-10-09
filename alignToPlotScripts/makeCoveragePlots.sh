@@ -14,80 +14,80 @@ Plots=/Users/brittanyhowell/Documents/University/Honours_2016/Project/ReadCovera
 echo "Commencing program"
 TZ="Australia/Adelaide" date
 
-# # Check if there are already plots
-# cd ${CoverageDIR}
-# for iPlot in *.bed ; do 
+# Check if there are already plots
+cd ${CoverageDIR}
+for iPlot in *.bed ; do 
 
-# 	filename=${iPlot%.coverage.bed}
+	filename=${iPlot%.coverage.bed}
 
-# 	if [ -f "${filename}.pdf" ]; then
-# 		rm "$filename.pdf" 
-# 		echo "Removed ${filename} PDFs"	
-# 	fi 
-# done
+	if [ -f "${filename}.pdf" ]; then
+		rm "$filename.pdf" 
+		echo "Removed ${filename} PDFs"	
+	fi 
+done
 
-# # Check if the folder $Plots exists
-# if [ -d $Plots ]; then
-# 	rm -r $Plots 
-# 	mkdir $Plots
-# 	echo "Plots folder exists... replacing" 
-# else 
-# 	echo "creating Plots folder" 
-# 	mkdir $Plots
-# fi 
-# echo "finished removing"
+# Check if the folder $Plots exists
+if [ -d $Plots ]; then
+	rm -r $Plots 
+	mkdir $Plots
+	echo "Plots folder exists... replacing" 
+else 
+	echo "creating Plots folder" 
+	mkdir $Plots
+fi 
+echo "finished removing"
 
-# # Plot coverage
-# echo "Plotting coverage plots"
-# for iCov in $COVERAGE; do 
-# 	filename=${iCov%.coverage.bed}
-# 	cd ${Scripts}
-# 	Rscript coverageAnalysis.R ${iCov} ${filename}.pdf ${filename}.zoom.pdf ${filename}.ultraZoom.pdf
+# Plot coverage
+echo "Plotting coverage plots"
+for iCov in $COVERAGE; do 
+	filename=${iCov%.coverage.bed}
+	cd ${Scripts}
+	Rscript coverageAnalysis.R ${iCov} ${filename}.pdf ${filename}.zoom.pdf ${filename}.ultraZoom.pdf
 
-# done
+done
 
-#  # mv meanNumber.txt ${Plots}
-#  # mv meanFraction.txt ${Plots}
-#  # mv medNumber.txt ${Plots}
-#  # mv medFraction.txt ${Plots}
+ mv meanNumber.txt ${Plots}
+ mv meanFraction.txt ${Plots}
+ mv medNumber.txt ${Plots}
+ mv medFraction.txt ${Plots}
 
-#  # Move all files into plots folder
-#  cd ${CoverageDIR}
-#  mv *.pdf ${Plots}
-# echo "Plots created and moved"
+ # Move all files into plots folder
+ cd ${CoverageDIR}
+ mv *.pdf ${Plots}
+echo "Plots created and moved"
 
-#  # Rename plots for the sake of LaTeX.
-#  cd ${Plots}
-#  for iPlot in *.pdf ; do 
+ # Rename plots for the sake of LaTeX.
+ cd ${Plots}
+ for iPlot in *.pdf ; do 
 
-#  	AddDash=$(echo $iPlot | sed 's/\./-/g')
-#  	RemovePdf=${AddDash%-pdf}
-#  	LatexName="${RemovePdf}.pdf"
+ 	AddDash=$(echo $iPlot | sed 's/\./-/g')
+ 	RemovePdf=${AddDash%-pdf}
+ 	LatexName="${RemovePdf}.pdf"
 
-#  	mv $iPlot $LatexName
+ 	mv $iPlot $LatexName
 
-#  done
+ done
 
-# echo "Plots renamed"
+echo "Plots renamed"
  
  cd ${Scripts}
  echo "Making LaTeX plots"
 ./LatexCoveragePlots.sh ${Plots}
 
-# echo "Making summary Plot"
+echo "Making summary Plot"
 
-# Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf ${Plots}/SummaryPlotNum.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf ${Match} ${Map}
+Rscript makeCoverageSummary.R ${Plots}/meanFraction.txt ${Plots}/meanNumber.txt ${Plots}/SummaryTable.txt ${Plots}/SummaryPlot.pdf ${Plots}/SummaryPlotNum.pdf  ${Plots}/Summary-MismatchFraction.pdf ${Plots}/Summary-MultimapFraction.pdf ${Plots}/Summary-MismatchDepth.pdf ${Plots}/Summary-MultiFraction.pdf ${Match} ${Map}
 
-# echo "Making median table"
-# Rscript makeMedianTable.R ${Plots}/medFraction.txt ${Plots}/medNumber.txt ${Match} ${Map} ${Plots}/medianTable.txt
+echo "Making median table"
+Rscript makeMedianTable.R ${Plots}/medFraction.txt ${Plots}/medNumber.txt ${Match} ${Map} ${Plots}/medianTable.txt
 
-# echo "Making summary Latex tables"
-# ./LatexCoverageTable.sh ${Plots}
-# ./LatexMedianTable.sh ${Plots}
+echo "Making summary Latex tables"
+./LatexCoverageTable.sh ${Plots}
+./LatexMedianTable.sh ${Plots}
 
-# echo "Making Latex Summary Plot"
+echo "Making Latex Summary Plot"
 
-# ./LatexCoverageSummaryPlot.sh ${Plots}
+./LatexCoverageSummaryPlot.sh ${Plots}
 
 
 

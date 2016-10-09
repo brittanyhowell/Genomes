@@ -15,6 +15,8 @@ else
     echo "coveragePlots.tex did not exist....creating" 
 fi
 
+plot="0"
+
 # Make tablefile
 for iPlot in *zoom.pdf ; do 
 
@@ -22,8 +24,9 @@ filename=${iPlot%-zoom.pdf}
 
 
 captionName=$(echo $filename | sed 's/_/-/g')
+	
 
-	echo "\begin{figure}[tbp]" >> coveragePlots.tex
+	echo "\begin{figure}[htp]" >> coveragePlots.tex
 	echo "\centering"  >> coveragePlots.tex
 	echo "\makebox[\textwidth][c]{" >> coveragePlots.tex
 	echo "\begin{subfigure}[b]{.59\textwidth}" >> coveragePlots.tex
@@ -40,6 +43,8 @@ captionName=$(echo $filename | sed 's/_/-/g')
 	echo "\label{fig:coverage-${captionName}}" >> coveragePlots.tex
 	echo "\end{figure}" >> coveragePlots.tex                                             
 	echo "" >> coveragePlots.tex
-	echo "\clearpage" >> coveragePlots.tex
-	
+
+
+
 done
+

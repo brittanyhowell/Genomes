@@ -3,22 +3,23 @@
 ## Date: 10-6-2016
 
 # Working folders
-BEDDir=/mnt/project/Data/Mouse/BED/Last2
-COORDDIR=/mnt/project/Data/Mouse/locationMouse
-COORD=L1_Mouse_merge_sort_ORF2only-bothORF.bed
-OUTDIR=/mnt/project/Data/Mouse/intersect/Mut-F2-Rep1-Last2
+BEDDir=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Data/BEDs
+COORDDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Data/L1Location
+COORD=L1_mouseORF1-2-4-8kb.bed
+OUTDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Data/BEDs/Intersected
 
 # File names
-TAIL="O2.bO.bed"
+TAIL="Active.bed"
+trunc="STAR.10.45.Aligned.sortedByCoord.out.bed"
 
 #Purpose of run
-DETAILS="Last2, these are the ones that failed."
+DETAILS="Rerunning intersect with active coordinates from Atma"
 
 # record
-recordDIR=/mnt/project/Coverage/Scripts/record/
-record=/mnt/project/Data/Mouse/Scripts/record/recordIntersectLast2.txt 
-error=/mnt/project/Data/Mouse/Scripts/record/recordIntersectLast2.err
-RecordError=/mnt/project/Data/Mouse/Scripts/record/recordIntersectLast2.err.log
+recordDIR=/Users/brittanyhowell/Documents/University/Honours_2016/Project/Data/Records
+record=${recordDIR}/intersectActive.txt 
+error=${recordDIR}/intersectActive.err
+RecordError=${recordDIR}/intersectActive.err.log
 
 # Check and make record
 if [ -f ${record} ]; then
@@ -69,7 +70,7 @@ cd ${BEDDir}
 
 for file in *.bed ; do 
 
-filename=${file%.bed}
+filename=${file%${trunc}}
 	
 	echo "Commencing intersect for ${filename}" >> ${record} 2>&1
 	echo "Commencing intersect for ${filename}"

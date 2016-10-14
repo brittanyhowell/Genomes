@@ -1,7 +1,6 @@
 # Genomes
 ## alignToPlotScripts
 
-## Summary:
 Takes you from alignment to plot.
 
 #### Input/Output
@@ -13,7 +12,7 @@ Output: 	Coverage plots which show the proportion of the element covered as well
 
 
 - Intersect.sh:					Invokes bedtools intersect.
-- LatexCoveragePlots: 			Generates LaTeX plot for all coverage plots.
+- LatexCoveragePlots.sh: 			Generates LaTeX plot for all coverage plots.
 - LatexCoverageSummaryPlot.sh: 	Generates LaTeX plot for summary coverage plot.
 - LatexCoverageTable.sh:  		Generates LaTeX table for mean coverage data.
 - LatexMedianTable.sh: 			Generates LaTeX table for median coverage data.
@@ -29,4 +28,4 @@ Output: 	Coverage plots which show the proportion of the element covered as well
 - mergeBED.sh:					merges BEDs in a directory.
 - moveCoverageBED.sh:			Migrates data from VM to Mac.
 - redoAlignments.sh: 			Runs STAR for defined variables.
-- samTools: 					I grew tired of asking Google what the correct tools were.
+- samTools.sh: 					I grew tired of asking Google what the correct tools were.

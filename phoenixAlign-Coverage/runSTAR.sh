@@ -3,13 +3,12 @@
 ## Date: 13-8-2016
 
 # variables need to be here because the script checks if they exist
+# Remember to add them to line 60.
 rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data
 indexedDIR=/data/rc003/Brittany/genomes/indexedHuman
 alignDIR=/data/rc003/Brittany/humanAlignment
 alignOutDIR=/data/rc003/Brittany/humanAlignment/output
 
-# variables need to be here so the sbatch can call all of them. (trust me it's easier changing them up here than down there on line 63)
-variables=""
 
 
 # Check all folders exist
@@ -53,7 +52,7 @@ fi
 cd ${rawDIR}
 READ=$(ls *_R1.fastq)
 
-for file in ${READ}; do
+for file in ${READ}; do 
 
 	readname=${file%_R1.fastq}
     echo "aligning for ${readname}"

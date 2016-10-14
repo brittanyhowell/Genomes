@@ -7,6 +7,7 @@ I had this idea to investigate how many L1s had high coverage. No further analys
 
 #### Input/Output
 Input: 		STAR genome, intervals of interest.
+
 Output: 	Coverage plots which show the proportion of the element covered as well as the depth at those covered bases.
 
 #### Script Purposes:

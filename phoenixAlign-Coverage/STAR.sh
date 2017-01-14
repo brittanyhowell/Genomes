@@ -3,14 +3,13 @@
 ## Date: 31-5-2016
 # Invoked by:
 #
-# rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/Henmt1_mRNAseq_mouse/raw_data/two indexedDIR=/data/rc003/Brittany/genomes/indexedMouse alignDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight alignOutDIR=/data/rc003/Brittany/Alignment/TwoTrialsRight/output sbatch STAR.sh
-
+# 	rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/spliceMutant/reads indexedDIR=/data/rc003/Brittany/genomes/indexedHuman  alignDIR=/data/rc003/Brittany/Alignment/spliceMutant alignOutDIR=/data/rc003/Brittany/Alignment/spliceMutant/output sbatch STAR.sh
 
 #SBATCH -p batch
 #SBATCH -N 1 
 #SBATCH -n 8  				
-#SBATCH --time=0-03:00
-#SBATCH --mem=50GB 			
+#SBATCH --time=0-04:00
+#SBATCH --mem=40GB 			
 
 # Notification configuration 
 #SBATCH --mail-type=END                                         

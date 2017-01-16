@@ -21,7 +21,6 @@ module load STAR/2.5.1a-foss-2015b
 
 
 #Run STAR
- STAR --runMode genomeGenerate --runThreadN 8 --genomeDir /data/rc003/Brittany/Data/genomes/indexed/hg19 --genomeFastaFiles /data/rc003/Brittany/Data/genomes/hg19.fa
-
+STAR --runMode genomeGenerate --runThreadN 8 --genomeDir /data/rc003/Brittany/Data/genomes/indexed/GRCm38.p2 --genomeFastaFiles /data/rc003/Brittany/Data/genomes/GRCm38.p2.fa
 echo "Complete"
 

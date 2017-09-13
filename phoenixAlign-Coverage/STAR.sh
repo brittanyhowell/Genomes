@@ -23,30 +23,29 @@ module load STAR/2.5.1a-foss-2015b
 module load SAMtools/1.2-foss-2015b
 
 
-
-
-
 readname=${1}
 
-	echo "Running STAR for ${readname}" 		
 
-	#Run STAR
- STAR --runThreadN 8 --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}_R1.fastq ${rawDIR}/${readname}_R2.fastq --outFilterMismatchNmax 10 --outFilterMultimapNmax 45 --outFileNamePrefix ${alignDIR}/${readname}.STAR. --outSAMstrandField intronMotif --outSAMattributes All  --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No 
+        echo "Running STAR for ${readname}" 
+          
 
-		cd ${alignDIR}
+        #Run STAR
+  STAR --runThreadN 8 --genomeDir ${indexedDIR} --readFilesIn ${rawDIR}/${readname}R1.fastq ${rawDIR}/${readname}R2.fastq --outFilterMismatchNmax 10 --outFilterMultimapNmax 45 --outFileNamePrefix ${alignDIR}/${readname}.STAR. --outSAMstrandField intronMotif --outSAMattributes All  --outSAMtype BAM SortedByCoordinate --alignSoftClipAtReferenceEnds No 
 
-	# Make bam index
-	echo "Making bam index" 
+                cd ${alignDIR}
+
+        # Make bam index
+        echo "Making bam index" 
     samtools index ${readname}.STAR.Aligned.sortedByCoord.out.bam 
 
-    # echo "Making sam from bam "
-    # samtools view -h ${readname}.STAR.Aligned.sortedByCoord.out.bam > ${readname}.STAR.Aligned.sortedByCoord.out.sam
+     echo "Making sam from bam"
+     samtools view -h ${readname}.STAR.Aligned.sortedByCoord.out.bam > ${readname}.STAR.Aligned.sortedByCoord.out.sam
 
 echo "moving files"
-	# Move alignment information files into separate folder
-	mv ${readname}.STAR.Log.out ${alignOutDIR} 
-	mv ${readname}.STAR.Log.final.out ${alignOutDIR} 
-	mv ${readname}.STAR.Log.progress.out ${alignOutDIR} 
+        # Move alignment information files into separate folder
+        mv ${readname}.STAR.Log.out ${alignOutDIR} 
+        mv ${readname}.STAR.Log.final.out ${alignOutDIR} 
+        mv ${readname}.STAR.Log.progress.out ${alignOutDIR} 
 
 echo "Changing names"
     # Changing names
@@ -56,4 +55,3 @@ echo "Changing names"
 
 
 echo "finished with ${readname}"
-

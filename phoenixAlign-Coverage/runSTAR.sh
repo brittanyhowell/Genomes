@@ -2,13 +2,13 @@
 ## Script submits multiple STAR scripts
 ## Date: 13-8-2016
 
-# variables need to be here because the script checks if they exist
+# variables need to be here because the script checks if the folders exist
 # Remember to add them to line 60.
-rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data
-indexedDIR=/data/rc003/Brittany/genomes/indexedHuman
-alignDIR=/data/rc003/Brittany/humanAlignment
-alignOutDIR=/data/rc003/Brittany/humanAlignment/output
-
+rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data/Aggregate
+indexedDIR=/fast/users/a1646948/data/genomes/indexed/hg19
+alignDIR=/fast/users/a1646948/data/bam/humanALL1045
+alignOutDIR=/fast/users/a1646948/data/bam/humanALL1045/outFiles
+scriptDIR=/fast/users/a1646948/scripts
 
 
 # Check all folders exist
@@ -47,21 +47,24 @@ else
     echo "Folder $alignOutDIR does not exist, making $alignOutDIR" 
 fi
 
-
+cd ${scriptDIR}
+cp STAR.sh ${rawDIR}
 # Move into reads folder
 cd ${rawDIR}
-READ=$(ls *_R1.fastq)
+READ=$(ls *R1.fastq)
 
 for file in ${READ}; do 
 
-	readname=${file%_R1.fastq}
+
+        readname=${file%R1.fastq}
+
+
     echo "aligning for ${readname}"
 
-rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data indexedDIR=/data/rc003/Brittany/genomes/indexedHuman alignDIR=/data/rc003/Brittany/humanAlignment alignOutDIR=/data/rc003/Brittany/humanAlignment/output    sbatch STAR.sh ${readname}
+
+rawDIR=/data/rc003/Brittany/Data/TranscriptomeData/CKI_MCF7_mRNAseq_human/raw_data/Aggregate indexedDIR=/fast/users/a1646948/data/genomes/indexed/hg19 alignDIR=/fast/users/a1646948/data/bam/humanALL1045 alignOutDIR=/fast/users/a1646948/data/bam/humanALL1045/outFiles sbatch STAR.sh ${readname}
 
 
 done
 
 echo "Complete"
-
-
